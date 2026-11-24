@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#4b2e83">
-  <title>Husky Path — Your academic next step</title><link rel="stylesheet" href="chat.css"><link rel="stylesheet" href="taste.css"><link rel="stylesheet" href="enhancements.css">
+  <title>Husky Path — Your academic next step</title><link rel="stylesheet" href="chat.css"><link rel="stylesheet" href="taste.css"><link rel="stylesheet" href="enhancements.css"><link rel="stylesheet" href="layout.css"><link rel="stylesheet" href="intro.css">
 </head>
-<body>
+<body class="is-intro">
+  <canvas id="grove" aria-hidden="true"></canvas>
   <div class="layout">
-    <aside class="rail">
+    <aside class="rail" id="rail">
       <a class="logo" href="#" id="homeLogo"><span>H</span><b>Husky Path<small>YOUR UW PLANNING SPACE</small></b></a>
       <div class="rail-label nav-title">WORKSPACE</div>
       <nav class="app-nav" aria-label="Main navigation">
@@ -20,7 +21,7 @@
       <div class="rail-bottom"><span>◈</span><div><b>Privacy first</b><small>Profile saved only in this browser</small></div></div>
     </aside>
     <main class="main">
-      <header class="topbar"><div><strong id="topbarTitle">Planning assistant</strong><small id="topbarQuarter">Winter 2027 · Demo course data</small></div><button class="profile" id="topbarProfile" type="button" title="Edit student profile"><span id="profileInitial">J</span><b id="profileName">Jordan Lee</b> <small>My profile</small></button></header>
+      <header class="topbar"><button class="panel-toggle" id="toggleRail" aria-controls="rail" aria-expanded="true" aria-label="Hide left sidebar" title="Hide left sidebar"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7.5 3.5v13" stroke="currentColor" stroke-width="1.5"/></svg></button><div class="topbar-title"><strong id="topbarTitle">Planning assistant</strong><small id="topbarQuarter">Winter 2027 · Demo course data</small></div><button class="profile" id="topbarProfile" type="button" title="Edit student profile"><span id="profileInitial">J</span><b id="profileName">Jordan Lee</b> <small>My profile</small></button><button class="panel-toggle" id="toggleContext" aria-controls="context" aria-expanded="true" aria-label="Hide right sidebar" title="Hide right sidebar"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12.5 3.5v13" stroke="currentColor" stroke-width="1.5"/></svg></button></header>
       <div class="workspace">
         <section class="conversation">
           <div class="chat-head"><div><span class="eyebrow">QUARTER PLANNING</span><h1>Ask about your next step.</h1><p>Graduation requirements, course sequencing, and quarter planning — in one conversation.</p></div><span class="term">❄ Winter 2027</span></div>
@@ -28,7 +29,7 @@
             <div class="welcome"><div class="assistant-avatar">✳</div><div class="bubble assistant"><b>Hi Jordan! What would you like help with?</b><p>Ask about your graduation path and course order. I will distinguish the fictional demo audit from verified UW information.</p><div class="starter-prompts"><button class="prompt">What do I still need to graduate?</button><button class="prompt">Which quarter are these courses offered?</button><button class="prompt">What order should I take my remaining courses?</button></div></div></div>
             <div id="thread"></div>
           </div>
-          <div class="composer-wrap"><div class="composer"><textarea id="messageInput" rows="1" placeholder="Ask about courses, requirements, or schedule preferences…" aria-label="Message the planning assistant"></textarea><button id="sendMessage" aria-label="Send message">↑</button></div><div class="composer-note"><span>↳</span> Suggestions are planning aids built on sample data. Confirm details in official UW systems.</div></div>
+          <div class="composer-wrap"><div class="composer"><textarea id="messageInput" rows="1" placeholder="Ask about courses, requirements, or schedule preferences…" aria-label="Message the planning assistant"></textarea><button id="sendMessage" aria-label="Send message">↑</button></div></div>
         </section>
         <section class="full-page hidden" id="profilePage" aria-labelledby="profileHeading">
           <div class="page-heading"><span class="eyebrow">MY COURSES</span><h1 id="profileHeading">Start with what you’ve taken.</h1><p>Import an unofficial transcript and review the detected classes, then personalize your plan.</p></div>
@@ -59,7 +60,7 @@
           <h2 class="course-list-heading">Courses in your draft</h2><div id="scheduleCourseList" class="schedule-course-list"></div>
           <p class="disclaimer">Fictional demo sections and times, not live registration information. Verify all course offerings, conflicts, prerequisites, and seats through UW.</p>
         </section>
-        <aside class="context" aria-label="Your context">
+        <aside class="context" id="context" aria-label="Your context">
           <div class="context-title"><div><span class="eyebrow">YOUR CONTEXT</span><h2 id="contextQuarter">Winter 2027</h2></div></div>
           <div class="context-section"><div class="context-label">DEGREE PROGRESS <button id="openDegree">View details ↗</button></div><div class="major"><span class="major-icon">⌘</span><div><b id="contextMajor">Computer Science</b><small>Your profile · degree audit is sample-only</small></div></div><p class="mini-note">The degree progress popup shows a separate fictional CS audit; it is not calculated from your profile.</p></div>
           <div class="context-section"><div class="context-label">YOUR PREFERENCES <button id="addPref">＋ Add preference</button></div><div id="prefChips"></div><p class="mini-note">Used only for this demo's suggestions. Does not change MyPlan settings.</p></div>
@@ -76,5 +77,8 @@
   <script src="data.js"></script>
   <script src="chat.js"></script>
   <script src="enhancements.js"></script>
+  <script src="sidebar.js"></script>
+  <script src="grove.js"></script>
+  <script src="intro.js"></script>
 </body>
 </html>
