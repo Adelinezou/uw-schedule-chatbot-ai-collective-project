@@ -1,0 +1,60 @@
+/* layout.css — loaded last. Holds: cherry-grove background, collapsible sidebars,
+   chat message spacing fix, and the composer focus-border fix. */
+
+/* ---- cherry-grove line-weave background (grove.js) ---- */
+#grove{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none;opacity:.5;filter:saturate(.7)}
+.layout{position:relative;z-index:1}
+.rail,.topbar,.context{background:rgba(255,255,255,.80);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px)}
+.composer-wrap{background:linear-gradient(transparent,rgba(248,247,251,.82) 30%)}
+.chat-head h1,.chat-head p,.chat-head .eyebrow{text-shadow:0 0 6px #f8f7fb,0 0 12px #f8f7fb}
+.composer-note{color:#7d7890}
+/* My Courses / My Schedule pages keep a soft panel so their text stays readable over the trees */
+.workspace.view-extra .full-page{background:rgba(248,247,251,.88);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);min-height:calc(100vh - 70px)}
+
+/* ---- collapsible sidebars (sidebar.js) ---- */
+.panel-toggle{border:0;background:transparent;color:#7d7890;width:32px;height:32px;border-radius:8px;display:grid;place-items:center;cursor:pointer;flex:0 0 32px}
+.panel-toggle:hover{background:var(--lav);color:var(--purple)}
+.panel-toggle[aria-expanded="false"]{color:var(--purple);background:var(--lav)}
+.topbar{justify-content:flex-start;gap:10px;padding:0 16px}
+.topbar-title{margin-right:auto}
+.rail{transition:transform .22s ease,visibility 0s}
+.main{transition:margin-left .22s ease,width .22s ease}
+.rail-hidden .rail{transform:translateX(-100%);visibility:hidden;transition:transform .22s ease,visibility 0s .22s}
+.rail-hidden .main{margin-left:0;width:100%}
+.context-hidden .context{display:none}
+.context-hidden .workspace{grid-template-columns:minmax(0,1fr)}
+/* the right sidebar only exists on the assistant view, so hide its toggle elsewhere */
+.main:has(.workspace.view-extra) #toggleContext{visibility:hidden}
+@media(max-width:700px){.rail,.main{transition:none}.rail-hidden .rail{display:none}.topbar{padding:0 8px}}
+
+/* ---- fix: user and assistant bubbles were touching ---- */
+#thread{display:flex;flex-direction:column;gap:22px}
+
+/* ---- fix: no purple border when the message box is focused ---- */
+.composer textarea:focus,.composer textarea:focus-visible{outline:none}
+.composer:focus-within{border-color:#ddd9e5;box-shadow:0 5px 20px #382c4d14}
+
+/* ---- larger, more readable conversation text ---- */
+.messages{width:min(760px,100%)}
+.composer,.composer-note{width:min(760px,100%)}
+.bubble{max-width:660px}
+.bubble b,.rec-top b{font-size:14px}
+.bubble p,.answer-intro,.rec-why,.rec-title{font-size:14px;line-height:1.65}
+.messages .user-bubble{font-size:14px;padding:11px 16px}
+.starter-prompts .prompt,.followup button{font-size:12px;padding:8px 13px}
+.rec-top small,.rec-tags span,.rec-notes,.rec-actions button,.source,.followup{font-size:12px}
+.rec-tags span{padding:4px 9px}
+.advisor-paragraph{font-size:14px!important}
+.advisor-section-title{font-size:14px}
+.advisor-requirements b,.advisor-step b,.advisor-requirements span,.advisor-step span{font-size:13px}
+.advisor-caveat{font-size:12px!important}
+.rmp-strip strong{font-size:13px}.rmp-strip small,.rmp-strip a,.rmp-muted{font-size:12px}
+.composer textarea{font-size:14px}
+.composer-note{font-size:11px}
+
+/* ---- hiding the right sidebar widens the conversation instead of just re-centring it ---- */
+.context-hidden .messages,.context-hidden .composer,.context-hidden .composer-note{width:min(1000px,100%)}
+.context-hidden .bubble{max-width:900px}
+.context-hidden.rail-hidden .messages,.context-hidden.rail-hidden .composer,.context-hidden.rail-hidden .composer-note{width:min(1120px,100%)}
+.context-hidden.rail-hidden .bubble{max-width:1020px}
+@media(max-width:700px){.bubble p,.answer-intro,.rec-why,.messages .user-bubble,.composer textarea{font-size:13px}}

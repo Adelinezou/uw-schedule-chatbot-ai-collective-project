@@ -1,0 +1,38 @@
+/* intro.css — opening state of the assistant (no message sent yet).
+   The heading, a larger message box and the suggested questions sit together in the middle of the
+   screen. After the first message the page settles into the normal chat layout. */
+
+.is-intro .conversation{justify-content:center;padding-bottom:9vh}
+.is-intro .chat-head{flex-direction:column;align-items:center;text-align:center;border-bottom:0;padding:0 0 26px;gap:0}
+.is-intro .chat-head .term{order:-1;margin:0 0 14px}
+.is-intro .chat-head h1{font-size:clamp(28px,3.4vw,40px);letter-spacing:-.8px;margin:10px 0 8px}
+.is-intro .chat-head p{font-size:14px}
+
+/* the message box moves up, right under the heading, and grows a little */
+.is-intro .composer-wrap{order:2;position:static;background:none;padding:0}
+.is-intro .composer{width:min(720px,100%);min-height:64px;align-items:center;border-radius:18px;padding:10px 12px 10px 20px;box-shadow:0 14px 40px #382c4d1c}
+.is-intro .composer textarea{font-size:16px;padding:10px 0}
+.is-intro .composer button{height:40px;width:40px;border-radius:12px}
+.is-intro .composer-note{margin-top:12px;text-shadow:0 0 4px #f8f7fb,0 0 8px #f8f7fb}
+
+/* the welcome bubble turns into a row of suggested questions under the box */
+.is-intro .messages{order:3;flex:0 0 auto;padding:22px 0 0;width:min(720px,100%)}
+.is-intro .welcome{justify-content:center}
+.is-intro .welcome .assistant-avatar,.is-intro .welcome .bubble>b,.is-intro .welcome .bubble>p{display:none}
+.is-intro .welcome .bubble{background:none;border:0;box-shadow:none;padding:0;max-width:none}
+.is-intro .starter-prompts{justify-content:center;margin:0;gap:10px}
+.is-intro .starter-prompts .prompt{background:rgba(255,255,255,.88);font-size:13px;padding:10px 16px;border-radius:22px;box-shadow:0 4px 14px #382c4d0d}
+
+/* the context panel waits until the conversation starts */
+.is-intro .context,.is-intro #toggleContext{display:none}
+.is-intro .workspace{grid-template-columns:minmax(0,1fr)}
+
+/* leaving the opening state: conversation and panel ease in */
+@keyframes introRise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes introFade{from{opacity:0}to{opacity:1}}
+.intro-exit .chat-head,.intro-exit .messages,.intro-exit .composer-wrap{animation:introRise .45s ease both}
+.intro-exit .messages{animation-delay:.05s}
+.intro-exit .context{animation:introFade .5s ease .1s both}
+@media(prefers-reduced-motion:reduce){.intro-exit *{animation:none!important}}
+
+@media(max-width:700px){.is-intro .conversation{padding-bottom:4vh}.is-intro .chat-head h1{font-size:24px}.is-intro .starter-prompts .prompt{font-size:12px}.is-intro .composer{min-height:56px;padding-left:16px}.is-intro .composer textarea{font-size:14px}}
